@@ -2,8 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [2.1.1] - 2026-02-17
 - Added explicit documentation for using `spam-clean-simple.sh` in `README.md`, `readme.txt`, and `PROJECT_CONTEXT.md`.
+- Added `SECURITY.md` with vulnerability reporting policy.
+- Added `CONTRIBUTING.md` with contribution workflow.
 
 ## [2.1.0] - 2026-02-17
 - Added standard WordPress plugin package files: `readme.txt`, `index.php`, `uninstall.php`, `LICENSE`, `.gitignore`.

@@ -3,7 +3,7 @@
  * Plugin Name: Bukreev Antispam
  * Plugin URI: https://github.com/alexanderbukreev/bukreev-antispam
  * Description: Marks spam comments by static rules without settings or UI.
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: Alexander Bukreev
  * Author URI: https://github.com/alexanderbukreev
  * License: GPL-2.0-or-later
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-const BUKREEV_ANTISPAM_VERSION = '2.1.0';
+const BUKREEV_ANTISPAM_VERSION = '2.1.1';
 const BUKREEV_ANTISPAM_CRON_HOOK = 'bukreev_antispam_scan_pending_comments';
 
 /**

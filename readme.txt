@@ -4,7 +4,7 @@ Tags: comments, spam, antispam, moderation
 Requires at least: 5.8
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ Original shell script workflow:
 No. The rule set is hardcoded in the plugin file.
 
 == Changelog ==
+= 2.1.1 =
+- Added documentation for `spam-clean-simple.sh` usage.
+- Added `SECURITY.md` and `CONTRIBUTING.md`.
+
 = 2.1.0 =
 - Added standard WordPress plugin package files (`readme.txt`, `index.php`, `uninstall.php`, `LICENSE`, `.gitignore`).
 - Added complete plugin header metadata (`License`, `Text Domain`, `Author URI`).
