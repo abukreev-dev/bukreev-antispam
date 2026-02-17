@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+- Added explicit documentation for using `spam-clean-simple.sh` in `README.md`, `readme.txt`, and `PROJECT_CONTEXT.md`.
+
 ## [2.1.0] - 2026-02-17
 - Added standard WordPress plugin package files: `readme.txt`, `index.php`, `uninstall.php`, `LICENSE`, `.gitignore`.
 - Updated plugin header metadata in `bukreev-antispam.php` (License, License URI, Text Domain, Author URI).

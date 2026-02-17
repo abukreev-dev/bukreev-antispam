@@ -22,6 +22,12 @@ Rule groups:
 - Static keyword list
 - Static author list
 
+Original shell script workflow:
+- Script: `spam-clean-simple.sh`
+- Run manually: `./spam-clean-simple.sh /path/to/wp-config.php`
+- If no path is passed, script expects `./wp-config.php`
+- Script scans pending comments and sets matches to spam in DB
+
 == Installation ==
 1. Upload the plugin folder to `/wp-content/plugins/`.
 2. Activate `Bukreev Antispam` through the Plugins menu in WordPress.

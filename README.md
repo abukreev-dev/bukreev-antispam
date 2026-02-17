@@ -1,30 +1,48 @@
 # Bukreev Antispam
 
-WordPress plugin that marks comments as spam using a fixed set of rules from `spam-clean-simple.sh`.
+WordPress-плагин, который помечает комментарии как спам по фиксированному набору правил из `spam-clean-simple.sh`.
 
-## What It Does
-- Checks every new comment before approval.
-- Marks matched comments as `spam` (does not show any UI or settings page).
-- Scans all pending comments every hour and moves matches to spam.
-- Uses exactly these rule groups:
-  - HTML link pattern: `<a href`
-  - No Cyrillic letters in comment text
-  - BBCode link pattern: `[url=`
-  - Static keyword list
-  - Static author list
+## Что делает плагин
+- Проверяет каждый новый комментарий до публикации.
+- Помечает совпавшие комментарии как `spam` (без интерфейса и страницы настроек).
+- Раз в час сканирует комментарии на модерации и переносит совпадения в спам.
+- Использует ровно следующие группы правил:
+  - HTML-ссылка: `<a href`
+  - Отсутствие кириллицы в тексте комментария
+  - BBCode-ссылка: `[url=`
+  - Статический список ключевых слов
+  - Статический список авторов
 
-## Standard Plugin Files
-- Main plugin file: `bukreev-antispam.php`
-- WordPress.org metadata: `readme.txt`
-- Directory protection file: `index.php`
-- Cleanup on uninstall: `uninstall.php`
-- License file: `LICENSE`
-- Change log: `CHANGELOG.md`
-- Project context: `PROJECT_CONTEXT.md`
+## Использование shell-скрипта
+`spam-clean-simple.sh` остаётся в репозитории как исходный standalone-скрипт очистки и источник антиспам-правил.
 
-## Version
-Current plugin version: `2.1.0`
+Запуск вручную для WordPress-установки:
 
-## Notes
-- The plugin is intentionally configuration-free.
-- Rule lists are hardcoded in `bukreev-antispam.php`.
+```bash
+./spam-clean-simple.sh /path/to/wp-config.php
+```
+
+Если путь не указан, скрипт ожидает `./wp-config.php` в текущей директории.
+
+Как работает:
+- Читает параметры БД и префикс таблиц из `wp-config.php`.
+- Сканирует комментарии с `comment_approved = '0'` (на модерации).
+- Применяет тот же набор правил, что и плагин.
+- Обновляет совпавшие комментарии до `comment_approved = 'spam'`.
+
+## Стандартные файлы плагина
+- Основной файл плагина: `bukreev-antispam.php`
+- Метаданные WordPress.org: `readme.txt`
+- Защитный файл директории: `index.php`
+- Очистка при удалении: `uninstall.php`
+- Файл лицензии: `LICENSE`
+- Журнал изменений: `CHANGELOG.md`
+- Контекст проекта: `PROJECT_CONTEXT.md`
+- Исходный shell-очиститель: `spam-clean-simple.sh`
+
+## Версия
+Текущая версия плагина: `2.1.0`
+
+## Примечания
+- Плагин намеренно сделан без настроек.
+- Списки правил захардкожены в `bukreev-antispam.php`.

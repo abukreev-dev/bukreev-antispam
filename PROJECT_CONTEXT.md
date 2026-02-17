@@ -15,6 +15,7 @@ Convert the standalone spam-cleaning shell logic into a minimal, standard WordPr
 - Runs hourly scan via WP-Cron for comments with `hold` status and marks matches as spam.
 - Runs initial pending-comments scan on plugin activation.
 - Unschedules plugin cron hook during uninstall.
+- Keeps standalone script workflow available for manual DB cleanup.
 
 ## Rule Set (ported as-is)
 1. Comment contains `<a href`
@@ -32,3 +33,12 @@ Convert the standalone spam-cleaning shell logic into a minimal, standard WordPr
 - `README.md` (developer-oriented overview)
 - `CHANGELOG.md` (release history)
 - `.gitignore` (local artifact ignore list)
+- `spam-clean-simple.sh` (original standalone cleaner and rule source)
+
+## Shell Script Workflow
+- Script: `spam-clean-simple.sh`
+- Purpose: manual one-off cleanup of pending comments directly in DB using the same rule set.
+- Run:
+  - `./spam-clean-simple.sh /path/to/wp-config.php`
+  - `./spam-clean-simple.sh` (expects `./wp-config.php`)
+- Output: reports checked/spam/remaining counters and moves matches to `comment_approved = 'spam'`.
