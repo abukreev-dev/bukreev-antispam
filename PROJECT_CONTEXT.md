@@ -9,6 +9,12 @@ Convert the standalone spam-cleaning shell logic into a minimal, standard WordPr
 ## Implemented in Plugin
 `bukreev-antispam.php`
 
+## Current Release State
+- Active plugin version: `2.1.1`
+- Git tag: `v2.1.1`
+- GitHub Release: `https://github.com/abukreev-dev/bukreev-antispam/releases/tag/v2.1.1`
+- Install package: `bukreev-antispam-2.1.1-clean.zip` (clean distribution)
+
 ## Current Behavior
 - Applies spam rules to each incoming comment via `pre_comment_approved`.
 - If at least one rule matches, comment status is set to `spam`.
@@ -34,6 +40,14 @@ Convert the standalone spam-cleaning shell logic into a minimal, standard WordPr
 - `CHANGELOG.md` (release history)
 - `.gitignore` (local artifact ignore list)
 - `spam-clean-simple.sh` (original standalone cleaner and rule source)
+
+## Clean Distribution Contents
+`bukreev-antispam-2.1.1-clean.zip` includes only:
+- `bukreev-antispam.php`
+- `readme.txt`
+- `index.php`
+- `uninstall.php`
+- `LICENSE`
 
 ## Shell Script Workflow
 - Script: `spam-clean-simple.sh`
