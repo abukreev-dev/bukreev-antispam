@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.2] - 2026-09-24
+- Keywords are matched against comment text only. Author name and email are no longer checked: keywords `yandex.ru`, `mail.ru` and `gmail` matched ordinary email addresses.
+- Removed the static author list (it only worked through the author name).
+- `spam-clean-simple.sh` updated the same way.
+
 ## [2.1.1] - 2026-02-17
 - Added explicit documentation for using `spam-clean-simple.sh` in `README.md`, `readme.txt`, and `PROJECT_CONTEXT.md`.
 - Added `SECURITY.md` with vulnerability reporting policy.

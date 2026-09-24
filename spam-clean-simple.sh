@@ -2,7 +2,7 @@
 
 ###############################################################################
 # WordPress Spam Comments Cleaner - Simple Version
-# Простая проверка: склеиваем автор+email+текст и ищем совпадения
+# Простая проверка: ищем совпадения только в тексте комментария (имя и почта не проверяются)
 ###############################################################################
 
 # Цвета
@@ -13,7 +13,6 @@ NC='\033[0m'
 
 # Массивы для поиска (без учета регистра)
 SPAM_KEYWORDS=("free spins" "WhatsApp" "тел." "yandex.ru" "Пишите мне в PM" "mail.ru" "casino" "Loved it" "Василенко" "writing about" "talking about" "Gemcy" "BTC" "спирт" "Статья представляет" "Собственник" "склада" "квартиру" "ооо" "контакты" "NON PRY" "грузов" "казино" "Новый год" "звоните" "звонка" "Бествей" "пpофиль" "http" "gmail" "заказа" "цены" "токен" "VIP" "телефон" "SEO" "трансфер" "цена" "Грузоподъемность" "товар" "отгрузка" "1win"  "Лаки Джет" "Lucky" "0090=0=" "Фонд" "СПБ" "Viagra" "Заработок" "мою страничку")
-SPAM_AUTHORS=("Thomaszoobe" "LouisTib" "CurtisLex" "LouisCig" "GerardoAtMob" "JosephKak" "Анны Самойлова") 
 
 # Путь к wp-config.php
 WP_CONFIG="${1:-./wp-config.php}"
@@ -51,7 +50,6 @@ echo ""
 echo -e "База: ${GREEN}$DB_NAME${NC} | Префикс: ${GREEN}$DB_PREFIX${NC}"
 echo ""
 echo -e "Ключевые слова: ${YELLOW}${SPAM_KEYWORDS[*]}${NC}"
-echo -e "Спам-авторы: ${YELLOW}${SPAM_AUTHORS[*]}${NC}"
 echo ""
 
 # Получаем ID всех комментариев на модерации
@@ -75,14 +73,6 @@ for id in $comment_ids; do
     content=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" --default-character-set=utf8mb4 -sN -e \
         "SELECT comment_content FROM ${DB_PREFIX}comments WHERE comment_ID = $id" 2>/dev/null)
     
-    # Получаем автор + email + контент одной строкой для общего поиска
-    data=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" --default-character-set=utf8mb4 -sN -e \
-        "SELECT CONCAT(
-            IFNULL(comment_author, ''), ' ',
-            IFNULL(comment_author_email, ''), ' ',
-            IFNULL(comment_content, '')
-         ) FROM ${DB_PREFIX}comments WHERE comment_ID = $id" 2>/dev/null)
-    
     found=""
     
     # Проверка 1: HTML ссылки
@@ -102,21 +92,11 @@ for id in $comment_ids; do
     
     # Проверка 4: Ключевые слова (без учета регистра)    
     for keyword in "${SPAM_KEYWORDS[@]}"; do
-        if echo "$data" | grep -qi "$keyword"; then
+        if echo "$content" | grep -qi "$keyword"; then
             found="$keyword"
             break
         fi
     done
-    
-    # Если не нашли в ключевых словах, проверяем авторов
-    if [ -z "$found" ]; then
-        for author in "${SPAM_AUTHORS[@]}"; do
-            if echo "$data" | grep -qi "$author"; then
-                found="$author"
-                break
-            fi
-        done
-    fi
     
     # Если что-то нашли - в спам
     if [ -n "$found" ]; then

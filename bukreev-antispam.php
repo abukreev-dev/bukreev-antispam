@@ -3,7 +3,7 @@
  * Plugin Name: Bukreev Antispam
  * Plugin URI: https://github.com/alexanderbukreev/bukreev-antispam
  * Description: Marks spam comments by static rules without settings or UI.
- * Version: 2.1.1
+ * Version: 2.1.2
  * Author: Alexander Bukreev
  * Author URI: https://github.com/alexanderbukreev
  * License: GPL-2.0-or-later
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-const BUKREEV_ANTISPAM_VERSION = '2.1.1';
+const BUKREEV_ANTISPAM_VERSION = '2.1.2';
 const BUKREEV_ANTISPAM_CRON_HOOK = 'bukreev_antispam_scan_pending_comments';
 
 /**
@@ -82,24 +82,6 @@ function bukreev_antispam_keywords()
 }
 
 /**
- * Return spam authors from the original shell script.
- *
- * @return string[]
- */
-function bukreev_antispam_authors()
-{
-    return array(
-        'Thomaszoobe',
-        'LouisTib',
-        'CurtisLex',
-        'LouisCig',
-        'GerardoAtMob',
-        'JosephKak',
-        'Анны Самойлова',
-    );
-}
-
-/**
  * Check a comment against spam rules from spam-clean-simple.sh.
  *
  * @param array $comment_data Comment payload.
@@ -107,11 +89,9 @@ function bukreev_antispam_authors()
  */
 function bukreev_antispam_match_reason($comment_data)
 {
+    // Only the comment text is checked. Author name and email are ignored: keywords
+    // like "yandex.ru", "mail.ru" and "gmail" matched ordinary email addresses.
     $content = isset($comment_data['comment_content']) ? (string) $comment_data['comment_content'] : '';
-    $author = isset($comment_data['comment_author']) ? (string) $comment_data['comment_author'] : '';
-    $email = isset($comment_data['comment_author_email']) ? (string) $comment_data['comment_author_email'] : '';
-
-    $search_blob = $author . ' ' . $email . ' ' . $content;
 
     if (stripos($content, '<a href') !== false) {
         return 'HTML link <a href';
@@ -126,14 +106,8 @@ function bukreev_antispam_match_reason($comment_data)
     }
 
     foreach (bukreev_antispam_keywords() as $keyword) {
-        if ($keyword !== '' && stripos($search_blob, $keyword) !== false) {
+        if ($keyword !== '' && stripos($content, $keyword) !== false) {
             return $keyword;
-        }
-    }
-
-    foreach (bukreev_antispam_authors() as $author_rule) {
-        if ($author_rule !== '' && stripos($search_blob, $author_rule) !== false) {
-            return $author_rule;
         }
     }
 
@@ -181,8 +155,6 @@ function bukreev_antispam_scan_pending_comments()
         $reason = bukreev_antispam_match_reason(
             array(
                 'comment_content' => $comment->comment_content,
-                'comment_author' => $comment->comment_author,
-                'comment_author_email' => $comment->comment_author_email,
             )
         );
 

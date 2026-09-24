@@ -10,7 +10,7 @@ Convert the standalone spam-cleaning shell logic into a minimal, standard WordPr
 `bukreev-antispam.php`
 
 ## Current Release State
-- Active plugin version: `2.1.1`
+- Active plugin version: `2.1.2` (deployed to 4 sites on ddl on 2026-09-24; git tag, GitHub release and zip not made yet)
 - Git tag: `v2.1.1`
 - GitHub Release: `https://github.com/abukreev-dev/bukreev-antispam/releases/tag/v2.1.1`
 - Install package: `bukreev-antispam-2.1.1-clean.zip` (clean distribution)
@@ -27,8 +27,7 @@ Convert the standalone spam-cleaning shell logic into a minimal, standard WordPr
 1. Comment contains `<a href`
 2. Comment text has no Cyrillic letters
 3. Comment contains `[url=`
-4. Any static keyword match in author/email/content blob
-5. Any static author match in author/email/content blob
+4. Any static keyword match in comment text (author name and email are not checked since 2.1.2)
 
 ## Standard Package Files
 - `bukreev-antispam.php` (main plugin runtime)

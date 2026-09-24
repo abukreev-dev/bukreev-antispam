@@ -4,7 +4,7 @@ Tags: comments, spam, antispam, moderation
 Requires at least: 5.8
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,8 +19,7 @@ Rule groups:
 - HTML links (`<a href`)
 - No Cyrillic characters in comment text
 - BBCode links (`[url=`)
-- Static keyword list
-- Static author list
+- Static keyword list, matched against comment text only (author name and email are not checked)
 
 Original shell script workflow:
 - Script: `spam-clean-simple.sh`
@@ -37,6 +36,10 @@ Original shell script workflow:
 No. The rule set is hardcoded in the plugin file.
 
 == Changelog ==
+= 2.1.2 =
+- Keywords are matched against comment text only; author name and email are no longer checked.
+- Removed the static author list.
+
 = 2.1.1 =
 - Added documentation for `spam-clean-simple.sh` usage.
 - Added `SECURITY.md` and `CONTRIBUTING.md`.
